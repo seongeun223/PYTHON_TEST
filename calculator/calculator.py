@@ -3,7 +3,6 @@ from fastapi import HTTPException
 
 def calculate(calculator:schemas.CalculationRequest):
     
-    print('==================================================================start')
     match calculator.operator:
         case '+':
             return calculator.num1 + calculator.num2
