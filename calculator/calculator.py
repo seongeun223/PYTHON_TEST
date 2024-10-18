@@ -13,6 +13,12 @@ def calculate(calculator:schemas.CalculationRequest):
         case '/':
             if calculator.num2 == 0:
                 raise HTTPException(status_code=400, detail="Cannot divide by zero")
-            return calculator.num1 / calculator.num2
+            
+            quotient = calculator.num1 / calculator.num2
+            remainder = calculator.num1 % calculator.num2
+            
+            return f"{quotient} (나머지 : {remainder})"
         case _:
             raise HTTPException(status_code=400, detail="Invalid operator")
+        
+    
