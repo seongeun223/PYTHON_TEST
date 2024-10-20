@@ -31,9 +31,11 @@ def convert_unit(value: float, from_unit: str, to_unit: str):
     weight_conversion = {"kg": 1.0, "lb": 0.453592}  # 파운드
 
     if from_unit in length_conversion and to_unit in length_conversion:
-        return value * (length_conversion[from_unit] / length_conversion[to_unit])
+        converted_value = value * (length_conversion[from_unit] / length_conversion[to_unit])
+        return f"{converted_value} {to_unit}"
 
     if from_unit in weight_conversion and to_unit in weight_conversion:
-        return value * (weight_conversion[from_unit] / weight_conversion[to_unit])
+        converted_value = value * (weight_conversion[from_unit] / weight_conversion[to_unit])
+        return f"{converted_value} {to_unit}"
 
     raise HTTPException(status_code=400, detail="Unsupported unit conversion.")
