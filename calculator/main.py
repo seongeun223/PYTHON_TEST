@@ -11,6 +11,7 @@ async def test_calculation(request:schemas.CalculationRequest):
     result = calculator.calculate(request)
     
     calculation_record = {
+        "type": "calculation",
         "operator": request.operator,
         "num1": request.num1,
         "num2": request.num2,
@@ -18,13 +19,17 @@ async def test_calculation(request:schemas.CalculationRequest):
     }
     calculation_history.append(calculation_record)
     
-    return {result, calculation_history}
+    return {
+        "result": result,
+        "calculation_history": calculation_history
+    }
 
 @app.post('/calculates/convert')
 async def convert_unit(request: schemas.UnitRequest):
     result = calculator.convert_unit(request.value, request.from_unit, request.to_unit)
     
     conversion_record = {
+        "type": "unit_conversion",
         "value": request.value,
         "from_unit": request.from_unit,
         "to_unit": request.to_unit,
@@ -32,7 +37,10 @@ async def convert_unit(request: schemas.UnitRequest):
     }
     calculation_history.append(conversion_record)
     
-    return result
+    return {
+        "result": result,
+        "calculation_history": calculation_history
+    }
 
 @app.get('/calculates/history')
 async def get_calculation_history():
